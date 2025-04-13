@@ -1,0 +1,7 @@
+**/__pycache__/
+secret.key
+config.py
+*.json
+logs
+backups
+restored
