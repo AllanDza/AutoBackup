@@ -1,4 +1,3 @@
-# remote_sync.py
 import subprocess, json, os
 from config import BUCKET 
 import logging
