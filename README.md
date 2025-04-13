@@ -25,29 +25,30 @@ A Python-based secure automated backup system with encryption, integrity validat
 git clone https://github.com/yourusername/autobackup.git
 cd autobackup
 ```
-####2. Create and Activate a Virtual Environment (Optional but recommended)
+
+#### 2. Create and Activate a Virtual Environment (Optional but recommended)
 
 ```bash
 python3 -m venv venv
 source venv/bin/activate
 ```
 
-####3. Install Requirements
+#### 3. Install Requirements
 ```bash
 pip install -r requirements.txt
 ```
 ---
-##⚙️ Configuration
+## ⚙️ Configuration
 🔑 Set Google Cloud Credentials
 
-#####1. Enable GCS on Google Cloud
+##### 1. Enable GCS on Google Cloud
 1. Go to Google Cloud Console
 
 2. Create a project (if not already)
 
 3. Enable Google Cloud Storage JSON API
 
-#####2. Create a Storage Bucket
+##### 2. Create a Storage Bucket
 1. Navigate to Storage > Browser
 
 2. Click Create Bucket
@@ -56,7 +57,7 @@ pip install -r requirements.txt
 
 4. Choose default settings
 
-#####3. Create a Service Account Key
+##### 3. Create a Service Account Key
 1. Navigate to IAM & Admin > Service Accounts
 
 2. Click Create Service Account
@@ -72,7 +73,7 @@ In config.py, specify the path to your GCP service account key:
 
 
 
-####config.py:
+#### config.py:
 
 ```
 JSON_PATH = "/absolute/path/to/autobackup-agent-key.json"
@@ -92,7 +93,7 @@ Run the main command-line interface:
 python3 main.py [command] [options]
 ```
 
-##Commands:
+## Commands:
 
 |  Command	 |  Description |
 | ------------ | ------------ |
@@ -127,7 +128,7 @@ Validate:
 python3 main.py validate --manifest backups/manifest_filename.json
 ```
 
-##🧠 How It Works
+## 🧠 How It Works
 1. Modified files are packed into a .tar.gz archive.
 
 2. Archive is encrypted using a secret.key.
@@ -140,7 +141,7 @@ python3 main.py validate --manifest backups/manifest_filename.json
 
 6. Can be restored locally or downloaded+decrypted from cloud.
 
-##🧾 Requirements
+## 🧾 Requirements
 - Python 3.7+
 
 Packages:
@@ -158,7 +159,7 @@ Install using:
 ```bash
 pip install -r requirements.txt
 ```
-##⏱️ Cron Setup
+## ⏱️ Cron Setup
 Schedule Automatic Backups (every 12 hours)
 ```bash
 0 */12 * * * /usr/bin/python3 /path/to/main.py backup --dir /your/target/dir >> /path/to/log.txt 2>&1
@@ -167,7 +168,7 @@ Schedule Cloud Push (once per day)
 ```bash
 0 1 * * * /usr/bin/python3 /path/to/main.py push >> /path/to/log.txt 2>&1
 ```
-##📄 Log File
+## 📄 Log File
 All operations are logged in backup.log (created automatically).
 
 View logs using:
@@ -175,7 +176,7 @@ View logs using:
 ```bash
 tail -f backup.log
 ```
-##📂 Directory Structure
+## 📂 Directory Structure
 ```
 AutoBackup/
 ├── main.py
@@ -189,13 +190,13 @@ AutoBackup/
 ├── backup.log
 └── requirements.txt
 ```
-##✅ Todo / Improvements
+## ✅ Todo / Improvements
 - Add email notification on backup success/failure
 
 - Add S3 or Dropbox integration
 
 - Add GUI version
 
-##📬 Author
+## 📬 Author
 Developed by Allan Dsouza
 GitHub: github.com/AllanDza
