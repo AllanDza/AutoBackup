@@ -48,7 +48,7 @@ pip install -r requirements.txt
 
 3. Enable Google Cloud Storage JSON API
 
-#####2. Create a Storage Bucket
+##### 2. Create a Storage Bucket
 1. Navigate to Storage > Browser
 
 2. Click Create Bucket
