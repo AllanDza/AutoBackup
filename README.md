@@ -77,6 +77,7 @@ In config.py, specify the path to your GCP service account key:
 
 ```
 JSON_PATH = "/absolute/path/to/autobackup-agent-key.json"
+BUCKET= "gcs_bucket_name"
 ```
 Then in your code (typically at the start of main.py or remote_sync.py):
 
