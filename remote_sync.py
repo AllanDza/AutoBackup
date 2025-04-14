@@ -9,10 +9,6 @@ def load_config(path="config.json"):
     with open(path) as f:
         return json.load(f)
 
-from google.cloud import storage
-import os
-
-
 def sync_file_to_gcs(file_path, bucket_name):
     if not os.path.exists(file_path):
         print(f"❌ File not found: {file_path}")
