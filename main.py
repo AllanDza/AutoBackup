@@ -6,6 +6,7 @@ from backup_engine import get_modified_files, create_backup
 from secure_utils import save_hash_manifest, encrypt_file, verify_file_hashes
 from remote_sync import sync_file_to_gcs ,download_from_gcs # updated import
 from config import BUCKET ,JSON_PATH
+from secure_utils import decrypt_file
 
 import logging
 import os
@@ -53,8 +54,9 @@ def start_backup(target_dir):
 def push_remote(bucket_name=BUCKET):
     # Get the most recently modified encrypted backup
     logging.info("Push remote...")
+    cutoff_time = time.time() - 24 * 3600  
     encrypted_files = sorted(
-        [f for f in os.listdir(BACKUP_DIR) if f.endswith(".enc")],
+        [f for f in os.listdir(BACKUP_DIR) if f.endswith(".enc") and os.path.getmtime(os.path.join(BACKUP_DIR, f)) > cutoff_time],],
         key=lambda x: os.path.getmtime(os.path.join(BACKUP_DIR, x))
     )
     if not encrypted_files:
@@ -84,7 +86,7 @@ def restore_backup(backup_file, destination):
     print("✅ Restore complete.")
     logging.info(f"Restore completed from {backup_file} to {destination}")
 
-from secure_utils import decrypt_file
+
 
 def restore_remote_backup(blob_name, destination,bucket_name=BUCKET):
     logging.info(f"Restoring remote backup {blob_name} to {destination} ...")
@@ -109,7 +111,10 @@ def view_backup_history():
         return
     print("📁 Backup history:")
     for file in sorted(os.listdir(BACKUP_DIR)):
-        print("  -", file)
+        if file.endswith(".enc"):
+            pass
+        else:
+            print("  -", file)
 
 def validate_integrity(manifest_path):
     if not os.path.exists(manifest_path):
@@ -125,7 +130,7 @@ def validate_integrity(manifest_path):
         print("All files match original hash.")
 
 if __name__ == "__main__":
-    parser = argparse.ArgumentParser(description="🖥️ AutoBackup Control Panel")
+    parser = argparse.ArgumentParser(description="AutoBackup Control Panel")
     parser.add_argument("command", choices=["backup", "push", "restore", "history", "validate","restore-remote"], help="Action to perform")
     parser.add_argument("--file", help="Backup file path (for restore)")
     parser.add_argument("--dest", default="./restored", help="Restore destination (default: ./restored)")

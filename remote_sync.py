@@ -2,6 +2,9 @@
 import subprocess, json, os
 from config import BUCKET 
 import logging
+from google.cloud import storage
+import os
+
 
 def load_config(path="config.json"):
     with open(path) as f:
@@ -10,9 +13,6 @@ def load_config(path="config.json"):
 from google.cloud import storage
 import os
 
-
-import os
-from google.cloud import storage
 
 def sync_file_to_gcs(file_path, bucket_name):
     if not os.path.exists(file_path):
@@ -39,8 +39,7 @@ def sync_file_to_gcs(file_path, bucket_name):
         print(f"❌ Upload failed: {e}")
         logging.error(f"Upload failed: {e}")
 
-from google.cloud import storage
-import os
+
 
 def download_from_gcs(blob_name, destination_path, bucket_name):
     try:
